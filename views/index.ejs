@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shareable Page</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+    img {
+      width: 300px;
+      height: auto;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+    <% if(data.title) { %>
+  <h1><%= data.title %></h1>
+    <% } else { %>
+  <h1>Nothing To Here</h1>
+    <% } %>
+  <p>For more details, please click the button below the image.</p>
+  
+    <% if(data.img_url) { %>
+  <img src="<%= data.img_url %>" alt="Placeholder Image">
+    <% } %>
+  <button id="share-btn">Click Here!</button>
+
+  <script>
+    let clicked = false;
+    document.getElementById('share-btn').addEventListener('click', () => {
+      if (!clicked) {
+        window.open('<%= data.direct_link %>', '_blank');
+        clicked = true;
+      } else{
+            // redirect the original destination
+            window.open('<%= data.dest?data.dest:data.direct_link %>');
+            clicked = false;
+      }     
+    });
+  </script>
+</body>
+</html>
