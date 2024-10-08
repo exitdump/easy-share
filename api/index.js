@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const db = require('./env/db.js');
+const db = require('../env/db.js');
 const app = express();
 
 // Set the view engine to EJS
