@@ -18,6 +18,7 @@ app.get('/:title?', (req, res) => {
     const random_link = db.direct_links[Math.floor(Math.random() * db.direct_links.length)];
 
     const base64Regex = /^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=)?$/i;
+    
     if (req.query.i){
         if (!base64Regex.test(req.query.i)) {
             image_url_encoded = req.query.i;
