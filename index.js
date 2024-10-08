@@ -10,15 +10,20 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Static files (CSS, images, etc.)
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-// Landing page route
+app.use((req, res, next) => {
+    console.log(`Request URL: ${req.url}`);
+    next();
+  });
+  
+  // Landing page route
 app.get('/:title?', (req, res) => {
 
     const random_link = db.direct_links[Math.floor(Math.random() * db.direct_links.length)];
 
     const base64Regex = /^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=)?$/i;
-    
+
     if (req.query.i){
         if (!base64Regex.test(req.query.i)) {
             image_url_encoded = req.query.i;
@@ -45,6 +50,13 @@ app.get('/:title?', (req, res) => {
     // console.log(data)
     res.render('index', { data });
 });
+
+
+app.use((req, res) => {
+    res.status(404).send('404 - Route not found');
+  });
+  
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
