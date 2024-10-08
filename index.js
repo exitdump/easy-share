@@ -16,7 +16,10 @@ app.use((req, res, next) => {
     console.log(`Request URL: ${req.url}`);
     next();
   });
-  
+
+app.get('/', (req, res) => {
+    res.send('Home Page')
+})
   // Landing page route
 app.get('/:title?', (req, res) => {
 
